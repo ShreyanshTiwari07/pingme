@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Loader } from "lucide-react";
+import { Toaster } from "react-hot-toast";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { useAuthStore } from "./store/useAuthStore";
+import { useListenOnlineUsers } from "./hooks/useListenOnlineUsers";
+
+import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
+import Navbar from "./components/Navbar";
+
+const App = () => {
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+
+  useListenOnlineUsers();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if (isCheckingAuth && !authUser)
+    return (
+      <div className="flex items-center justify-center h-screen bg-gradient-to-br from-pine-900 via-pine-700 to-pine-400">
+        <Loader className="w-10 h-10 animate-spin text-pine-100" />
+      </div>
+    );
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <Navbar />
 
-export default App
+      <Routes>
+        <Route path="/" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
+        <Route path="/signup" element={!authUser ? <SignUpPage /> : <Navigate to="/" />} />
+        <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/" />} />
+        <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
+      </Routes>
+
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: '#3E5F44',
+            color: '#E8FFD7',
+          },
+          success: {
+            iconTheme: {
+              primary: '#93DA97',
+              secondary: '#E8FFD7',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ff6b6b',
+              secondary: '#E8FFD7',
+            },
+          },
+        }}
+      />
+    </div>
+  );
+};
+
+export default App;
