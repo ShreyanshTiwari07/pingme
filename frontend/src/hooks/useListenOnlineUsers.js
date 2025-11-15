@@ -9,17 +9,10 @@ export const useListenOnlineUsers = () => {
 
   useEffect(() => {
     const socket = getSocket();
-    console.log("useListenOnlineUsers - Socket instance:", socket);
-    console.log("useListenOnlineUsers - authUser:", authUser?._id);
 
-    if (!socket) {
-      console.log("useListenOnlineUsers - No socket available");
-      return;
-    }
+    if (!socket) return;
 
     socket.on("getOnlineUsers", (userIds) => {
-      console.log("Received getOnlineUsers event with userIds:", userIds);
-      console.log("UserIds type:", typeof userIds, "isArray:", Array.isArray(userIds));
       setOnlineUsers(userIds);
     });
 

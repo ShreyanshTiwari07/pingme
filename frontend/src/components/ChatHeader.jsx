@@ -7,12 +7,7 @@ const ChatHeader = () => {
   const { selectedUser, setSelectedUser, onlineUsers } = useChatStore();
   const { authUser } = useAuthStore();
 
-  console.log("ChatHeader - onlineUsers:", onlineUsers);
-  console.log("ChatHeader - selectedUser._id:", selectedUser._id);
-  console.log("ChatHeader - selectedUser._id type:", typeof selectedUser._id);
-
   const isOnline = onlineUsers.includes(String(selectedUser._id));
-  console.log("ChatHeader - isOnline:", isOnline);
 
   return (
     <div className="p-4 border-b border-pine-400 bg-white">
