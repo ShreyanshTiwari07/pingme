@@ -26,7 +26,7 @@ const Sidebar = () => {
       <div className="border-b border-pine-400 w-full p-5">
         <div className="flex items-center gap-2">
           <Users className="w-6 h-6 text-pine-900" />
-          <span className="font-medium hidden sm:block text-pine-900">Contacts</span>
+          <span className="font-semibold text-lg hidden sm:block text-pine-900">Contacts</span>
         </div>
         {/* Online filter toggle */}
         <div className="mt-3 hidden sm:flex items-center gap-2">
@@ -37,9 +37,9 @@ const Sidebar = () => {
               onChange={(e) => setShowOnlineOnly(e.target.checked)}
               className="checkbox checkbox-sm"
             />
-            <span className="text-xs text-pine-700">Show online only</span>
+            <span className="text-sm text-pine-700">Show online only</span>
           </label>
-          <span className="text-xs text-pine-700">({users.length} total)</span>
+          <span className="text-sm text-pine-700">({users.length} total)</span>
         </div>
       </div>
 
@@ -69,8 +69,8 @@ const Sidebar = () => {
 
             {/* User info - visible on sm screens and larger */}
             <div className="hidden sm:block text-left min-w-0 flex-1">
-              <div className="font-medium truncate text-pine-900">{user.fullName}</div>
-              <div className="text-sm text-pine-700 truncate">
+              <div className="font-semibold text-base truncate text-pine-900">{user.fullName}</div>
+              <div className="text-sm font-medium text-pine-700 truncate">
                 {onlineUsers.includes(String(user._id)) ? "Online" : "Offline"}
               </div>
             </div>
@@ -95,8 +95,8 @@ const Sidebar = () => {
             <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
           </div>
           <div className="hidden sm:block flex-1 min-w-0">
-            <p className="text-sm font-medium text-pine-900 truncate">{authUser?.fullName}</p>
-            <p className="text-xs text-green-600 truncate">Online</p>
+            <p className="text-base font-semibold text-pine-900 truncate">{authUser?.fullName}</p>
+            <p className="text-sm font-medium text-green-600 truncate">Online</p>
           </div>
           <button
             onClick={logout}

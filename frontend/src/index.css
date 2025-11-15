@@ -51,7 +51,7 @@ body {
 .chat-message-wrapper {
   display: flex;
   gap: 0.5rem;
-  max-width: 75%;
+  max-width: 80%;
   align-items: flex-end;
 }
 
@@ -82,18 +82,20 @@ body {
 }
 
 .chat-header {
-  font-size: 0.625rem;
+  font-size: 0.8rem;
   color: #5E936C;
   opacity: 0.7;
   padding: 0 0.5rem;
 }
 
 .chat-bubble {
-  padding: 0.625rem 0.875rem;
+  padding: 0.875rem 1.125rem;
   border-radius: 0.5rem;
   word-wrap: break-word;
   max-width: 100%;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .chat-start .chat-bubble {
