@@ -5,17 +5,22 @@ import { Toaster } from "react-hot-toast";
 
 import { useAuthStore } from "./store/useAuthStore";
 import { useListenOnlineUsers } from "./hooks/useListenOnlineUsers";
+import { useVideoCallSocket } from "./hooks/useVideoCallSocket";
 
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import Navbar from "./components/Navbar";
+import VideoCall from "./components/VideoCall";
+import IncomingCallModal from "./components/IncomingCallModal";
+import CallingOverlay from "./components/CallingOverlay";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
   useListenOnlineUsers();
+  useVideoCallSocket();
 
   useEffect(() => {
     checkAuth();
@@ -61,6 +66,15 @@ const App = () => {
           },
         }}
       />
+
+      {/* Video Call Components */}
+      {authUser && (
+        <>
+          <VideoCall />
+          <IncomingCallModal />
+          <CallingOverlay />
+        </>
+      )}
     </div>
   );
 };
