@@ -17,6 +17,16 @@ const messageSchema= new mongoose.Schema({
     image:{
         type:String,
     },
+    // Soft delete fields
+    deletedFor: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "User",
+        default: [],
+    },
+    deletedForEveryone: {
+        type: Boolean,
+        default: false,
+    },
 },
 {timestamps: true}
 );
